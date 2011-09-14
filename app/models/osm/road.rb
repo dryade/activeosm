@@ -26,13 +26,23 @@ class OSM::Road < OSM::ActiveRecord
     quote_marks = %w{?} * supported_highway_tag_values.size
     ["highway in (#{quote_marks.join(',')})", supported_highway_tag_values].flatten
   end
-  named_scope :highway, :conditions => highway_conditions
+
+  if respond_to?(:scope)
+    scope :highway, where(*highway_conditions)
+  else
+    named_scope :highway, :conditions => highway_conditions
+  end
 
   def self.railway_conditions
     quote_marks = %w{?} * supported_railway_tag_values.size
     ["railway in (#{quote_marks.join(',')})", supported_railway_tag_values].flatten
   end
-  named_scope :railway, :conditions => railway_conditions
+
+  if respond_to?(:scope)
+    scope :railway, where(*railway_conditions)
+  else
+    named_scope :railway, :conditions => railway_conditions
+  end
 
   def self.default_conditions
     [ "#{highway_conditions.first} or #{railway_conditions.first}", highway_conditions.from(1), railway_conditions.from(1) ].flatten
