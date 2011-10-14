@@ -21,4 +21,6 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency('rails', '~> 3.0.7')
   s.add_runtime_dependency('postgis_adapter', '~> 0.8.1')
+
+  s.add_development_dependency "pg"
 end

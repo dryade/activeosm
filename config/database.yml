@@ -1,0 +1,6 @@
+osm:
+  adapter: postgresql
+  database: osm
+  # username: osm
+  # password: osm
+  # host: osm.dryade.priv
