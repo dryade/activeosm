@@ -1,4 +1,4 @@
-class OSM::Way < OSM::ActiveRecord
+class OSM::Way < OSM::Base
   set_table_name :france_osm_ways
 
   def node_ids

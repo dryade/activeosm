@@ -1,0 +1,12 @@
+osm:
+  adapter: postgresql
+  database: osm
+
+development:
+  adapter: postgresql
+  database: osm
+
+test:
+  adapter: postgresql
+  database: osm_test
+

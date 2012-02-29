@@ -1,6 +1,7 @@
 # CREATE INDEX france_osm_ways_nodes ON france_osm_ways USING gin (nodes);
 # insert into spatial_ref_sys VALUES (900913, 'EPSG', 900913, '', '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs');
-class OSM::Road < OSM::ActiveRecord
+
+class OSM::Road < OSM::Base
   extend ActiveSupport::Memoizable
 
   set_table_name :france_osm_line
@@ -52,9 +53,17 @@ class OSM::Road < OSM::ActiveRecord
 
   def transport_modes
     [].tap do |modes|
-      modes << :highway if supported_highway_tag_values.include?(highway)
-      modes << :railway if supported_railway_tag_values.include?(railway)
+      modes << :highway if highway?
+      modes << :railway if railway?
     end
+  end
+
+  def highway?
+    supported_highway_tag_values.include?(highway)
+  end
+
+  def railway?
+    supported_railway_tag_values.include?(railway)
   end
 
   def to_s
@@ -132,7 +141,7 @@ class OSM::Road < OSM::ActiveRecord
   end
   # memoize :length
 
-  memoize :locate_point
+  # memoize :locate_point
 
   class Finder
     extend ActiveSupport::Memoizable

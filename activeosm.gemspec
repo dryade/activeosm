@@ -15,12 +15,15 @@ Gem::Specification.new do |s|
   s.rubyforge_project = "activeosm"
 
   s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.test_files    = `git ls-files -- {spec}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency('rails', '~> 3.0.7')
-  s.add_runtime_dependency('postgis_adapter', '~> 0.8.1')
+  s.add_runtime_dependency 'rails'
+  s.add_runtime_dependency 'postgis_adapter'
+  s.add_runtime_dependency 'geokit'
 
+  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "capybara"
   s.add_development_dependency "pg"
 end
