@@ -75,46 +75,9 @@ class OSM::Road < OSM::Base
   end
 
   def self.find_all_by_nodes(nodes)
-    find_all_by_osm_id(OSM::Way.find_all_by_nodes(nodes)).compact
-    # cache.find_all_by_nodes(nodes)
+    ways = OSM::Way.find_all_by_nodes(nodes)
+    ways.empty? ? [] : find_all_by_osm_id().compact
   end
-
-  class Cache
-
-    def find_all_by_nodes(nodes)
-      node_ids = Array(nodes).collect do |node|
-        Integer === node ? node : node.id 
-      end
-
-      [].tap do |roads|
-        missed_nodes = []
-
-        node_ids.each do |node_id|
-          cached_roads = Rails.cache.read("OSM::Road::by_node::#{node_id}")
-          if cached_roads.present?
-            Rails.logger.debug "Find #{cached_roads.join(',')} associated to #{node_id}"
-            roads.concat cached_roads
-          else
-            missed_nodes << node_id
-          end
-        end
-
-        if missed_nodes.present?
-          missed_nodes.each do |node_id|
-            read_roads = OSM::Road.find_all_by_osm_id(OSM::Way.find_all_by_nodes(node_id)).compact
-            Rails.logger.debug "Associate OSM::Node##{node_id} with #{read_roads.join(',')}"
-            Rails.cache.write("OSM::Road::by_node::#{node_id}", read_roads)
-
-            roads.concat read_roads
-          end
-        end
-      end.uniq
-    end
-
-  end
-
-  @@cache = OSM::Road::Cache.new
-  cattr_reader :cache
 
   def junctions
     way.node_ids.collect do |node|

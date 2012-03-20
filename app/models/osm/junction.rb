@@ -4,6 +4,9 @@ class OSM::Junction
   attr_accessor :node_id, :roads
 
   def self.find_by_node(node)
+    if Integer === node
+      node = OSM::Node.find(node)
+    end
     connected_roads = OSM::Road.find_all_by_nodes(node)
     unless connected_roads.size < 2
       OSM::Junction.new :node => node, :roads => connected_roads
