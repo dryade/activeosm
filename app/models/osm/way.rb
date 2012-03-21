@@ -25,7 +25,7 @@ class OSM::Way < OSM::Base
     query=<<EOF
     select france_osm_ways.id from france_osm_ways 
       INNER JOIN france_osm_line ON (france_osm_ways.id = france_osm_line.osm_id)
-      where ST_DWithin(ST_GeomFromText('POINT(#{node.lat / 100.0} #{node.lon / 100.0})', 900913), france_osm_line.way, 10) and france_osm_ways.nodes && array[#{node.id}];
+      where ST_DWithin(ST_GeomFromText('POINT(#{node.lon / 100.0} #{node.lat / 100.0})', 900913), france_osm_line.way, 10) and france_osm_ways.nodes && array[#{node.id}];
 EOF
     find_by_sql query
   end

@@ -76,7 +76,7 @@ class OSM::Road < OSM::Base
 
   def self.find_all_by_nodes(nodes)
     ways = OSM::Way.find_all_by_nodes(nodes)
-    ways.empty? ? [] : find_all_by_osm_id().compact
+    ways.empty? ? [] : find_all_by_osm_id(ways).compact
   end
 
   def junctions
