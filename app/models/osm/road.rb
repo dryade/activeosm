@@ -85,6 +85,8 @@ class OSM::Road < OSM::Base
     end.compact
   end
 
+  delegate :node_ids, :to => :way
+
   def self.find_by_position(position)
     Finder.new(position).road
   end
