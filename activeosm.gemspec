@@ -2,15 +2,16 @@
 $:.push File.expand_path("../lib", __FILE__)
 require 'active_osm/version'
 
+# test
 Gem::Specification.new do |s|
   s.name        = "activeosm"
   s.version     = ActiveOSM::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
+  s.authors     = ["Alban Peignier, Luc Donnet, Marc Florisson"]
+  s.email       = ["apeignier@cityway.fr"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Manage OSM data import}
+  s.description = %q{Manage OSM data import}
 
   s.rubyforge_project = "activeosm"
 
@@ -19,7 +20,7 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency 'rails', '>= 3.1.3'
+  s.add_runtime_dependency 'rails', '>= 3.2.8'
   s.add_runtime_dependency 'geokit'
 
   s.add_development_dependency "rspec-rails"
