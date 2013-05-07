@@ -7,13 +7,11 @@ Gem::Specification.new do |s|
   s.name        = "activeosm"
   s.version     = ActiveOSM::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["Alban Peignier, Luc Donnet, Marc Florisson"]
-  s.email       = ["apeignier@cityway.fr"]
-  s.homepage    = ""
+  s.authors     = ["Alban Peignier", "Marc Florisson", "Luc Donnet"]
+  s.email       = ["alban@tryphon.eu", "mflorisson@cityway.fr", "luc.donnet@free.fr" ]
+  s.homepage    = "http://github.com/dryade/activeosm"
   s.summary     = %q{Manage OSM data import}
   s.description = %q{Manage OSM data import}
-
-  s.rubyforge_project = "activeosm"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec}/*`.split("\n")
